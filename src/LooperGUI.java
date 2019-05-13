@@ -40,8 +40,10 @@ public class LooperGUI extends Application{
         tracks = new HBox();
         for(int i = 0; i<6; i++){
             VBox v = new VBox(new TrackToggleButton(), new RecordButton());
+//            v.setSpacing(10);
             tracks.getChildren().add(v);
         }
+//        tracks.setSpacing(10);
 
     }
 

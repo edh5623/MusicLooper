@@ -12,7 +12,7 @@ public class TrackToggleButton extends ToggleButton {
 
     public TrackToggleButton(){
 
-        this.setStyle("-fx-background-color: #000000; -fx-background-radius: 0;");
+        this.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
 
         ImageView on = new ImageView(new Image("Graphics/TrackON.png"));
         on.setFitHeight(275);
