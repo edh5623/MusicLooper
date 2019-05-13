@@ -1,5 +1,7 @@
 import javafx.geometry.Insets;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -9,20 +11,30 @@ public class TrackToggleButton extends ToggleButton {
 
 
     public TrackToggleButton(){
-        this.setText("OFF");
+
+        this.setStyle("-fx-background-color: #000000; -fx-background-radius: 0;");
+
+        ImageView on = new ImageView(new Image("Graphics/TrackON.png"));
+        on.setFitHeight(275);
+        on.setFitWidth(133);
+
+        ImageView off = new ImageView(new Image("Graphics/TrackOFF.png"));
+        off.setFitHeight(275);
+        off.setFitWidth(133);
+
+        this.setGraphic(off);
 
         this.setOnAction(e ->{
             //TODO: Make graphics for on and off states
             if (this.isSelected()) {
-                this.setText("ON");
+                this.setGraphic(on);
             }
             else{
-                this.setText("OFF");
+                this.setGraphic(off);
             }
             //Call controller method for track toggle
         });
 
-        this.setStyle("-fx-font: 22 arial;");
         this.setPrefSize(150,300);
     }
 

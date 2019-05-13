@@ -38,7 +38,7 @@ public class LooperGUI extends Application{
 
     private void makeTracks(){
         tracks = new HBox();
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i<6; i++){
             VBox v = new VBox(new TrackToggleButton(), new RecordButton());
             tracks.getChildren().add(v);
         }

@@ -16,7 +16,7 @@ public class RecordButton extends ToggleButton {
         });
 
         this.setStyle("-fx-font: 16 arial;");
-        this.setPrefSize(150,200);
+        this.setPrefSize(150,150);
     }
 
 }
