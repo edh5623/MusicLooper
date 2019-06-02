@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
@@ -9,6 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+
+import java.io.File;
+
+//TODO: Add delete track button?
 
 /**
  * @author Ethan Howes
@@ -39,12 +45,9 @@ public class LooperGUI extends Application{
     private void makeTracks(){
         tracks = new HBox();
         for(int i = 0; i<6; i++){
-            VBox v = new VBox(new TrackToggleButton(), new RecordButton());
-//            v.setSpacing(10);
+            VBox v = new VBox(new TrackToggleButton(Integer.toString(i)), new RecordButton(Integer.toString(i)));
             tracks.getChildren().add(v);
         }
-//        tracks.setSpacing(10);
-
     }
 
     @Override
@@ -56,13 +59,25 @@ public class LooperGUI extends Application{
         main.setCenter(tracks);
 
         Scene scene = new Scene(main);
+
         stage.setScene(scene);
         stage.setTitle("Music Looper");
         stage.show();
+
     }
 
     @Override
     public void stop() throws Exception {
+        //TODO: Add option to save recordings in the future, for now,
+        // delete all recorded tracks when program is closed
+        //Delete all created tracks
+        File trackDir = new File("src/Tracks");
+        File[] tracks = trackDir.listFiles();
+        for(File f: tracks){
+            System.out.println("Deleting "+f.getName());
+            f.delete();
+        }
+
         super.stop();
     }
 
