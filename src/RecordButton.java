@@ -24,6 +24,10 @@ public class RecordButton extends ToggleButton {
 //        recording.setFitHeight(130);
 //        recording.setFitWidth(130);
 
+        ImageView recorded = new ImageView(new Image("Graphics/Recorded.png"));
+        record.setFitHeight(130);
+        record.setFitWidth(130);
+
         this.setGraphic(record);
 
         this.setOnAction(e ->{

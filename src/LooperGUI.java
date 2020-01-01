@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-//TODO: Add delete track button?
-
 /**
  * @author Ethan Howes
  */

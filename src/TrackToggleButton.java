@@ -3,10 +3,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import javafx.stage.Screen;
 
 public class TrackToggleButton extends ToggleButton {
 
+    private Player player;
 
     public TrackToggleButton(String trackNum){
 
@@ -29,8 +31,11 @@ public class TrackToggleButton extends ToggleButton {
         this.setOnAction(e ->{
             if (this.isSelected()) {
                 this.setGraphic(on);
+                player = new Player(trackNum);
+                player.start();
             }
             else{
+                player.finish();
                 this.setGraphic(off);
             }
             //Call model method for track toggle
