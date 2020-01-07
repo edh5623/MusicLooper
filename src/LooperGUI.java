@@ -45,7 +45,6 @@ public class LooperGUI extends Application{
         main.setCenter(tracks);
 
         Scene scene = new Scene(main);
-
         stage.setScene(scene);
         stage.setTitle("Music Looper");
         stage.show();
