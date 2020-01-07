@@ -1,10 +1,6 @@
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javafx.stage.Screen;
 
 public class TrackToggleButton extends ToggleButton {
 

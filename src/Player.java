@@ -5,8 +5,6 @@ public class Player extends Thread{
 
     private File wav;
 
-    private byte[] stream;
-
     private SourceDataLine line;
 
     private String name;
@@ -47,12 +45,15 @@ public class Player extends Thread{
 
         }
         catch(IOException ioe){
+            System.out.println("IO Exception!");
             ioe.printStackTrace();
         }
         catch(LineUnavailableException lue){
+            System.out.println("Line unavailable!");
             lue.printStackTrace();
         }
         catch (UnsupportedAudioFileException uafe){
+            System.out.println("Audio file not supported");
             uafe.printStackTrace();
         }
 

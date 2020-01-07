@@ -1,18 +1,11 @@
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author Ethan Howes
@@ -23,35 +16,30 @@ public class LooperGUI extends Application{
 
     private HBox tracks;
 
-//    @Override
-//    public void init() {
-//
-//    }
+    private ArrayList<RecordButton> recordList;
 
-    private Button recordButton(){
-        Button record = new Button("Record");
-        record.setPrefSize(150,200);
-        return record;
-    }
-
-    private ToggleButton onOffButton(){
-        ToggleButton onOff = new ToggleButton("On");
-        onOff.setPrefSize(150, 300);
-        return onOff;
+    @Override
+    public void init() {
+        main = new BorderPane();
+        recordList = new ArrayList<>();
     }
 
     private void makeTracks(){
         tracks = new HBox();
         for(int i = 0; i<6; i++){
-            VBox v = new VBox(new TrackToggleButton(Integer.toString(i)), new RecordButton(Integer.toString(i)));
+            RecordButton rb = new RecordButton(Integer.toString(i));
+            TrackToggleButton ttb = new TrackToggleButton(Integer.toString(i));
+            VBox v = new VBox(ttb, rb);
             tracks.getChildren().add(v);
+            recordList.add(rb);
+        }
+        for(RecordButton button: recordList){
+            button.setButtonList(recordList);
         }
     }
 
     @Override
     public void start(Stage stage){
-        this.main = new BorderPane();
-
         makeTracks();
 
         main.setCenter(tracks);
@@ -61,7 +49,6 @@ public class LooperGUI extends Application{
         stage.setScene(scene);
         stage.setTitle("Music Looper");
         stage.show();
-
     }
 
     @Override
