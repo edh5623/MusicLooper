@@ -48,7 +48,16 @@ public class Recorder extends Thread{
 
     public void finish(){
         line.stop();
+        line.flush();
         line.close();
-        System.out.println("Done Recording");
+        if(line.isActive()){
+            System.out.println("Still active");
+        }
+        else if(line.isOpen()){
+            System.out.println("Still open");
+        }
+        else {
+            System.out.println("Done Recording");
+        }
     }
 }

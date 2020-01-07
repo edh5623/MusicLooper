@@ -46,7 +46,7 @@ public class Player extends Thread{
             while(playing){
                 line.write(b, 0, b.length);
             }
-
+            in.close();
         }
         catch(IOException ioe){
             System.out.println("IO Exception!");
@@ -60,13 +60,21 @@ public class Player extends Thread{
             System.out.println("Audio file not supported");
             uafe.printStackTrace();
         }
-
     }
 
     public void finish(){
         playing = false;
         line.stop();
+        line.flush();
         line.close();
-        System.out.println("Done playing");
+        if(line.isActive()){
+            System.out.println("Still active");
+        }
+        else if(line.isOpen()){
+            System.out.println("Still open");
+        }
+        else {
+            System.out.println("Done Playing");
+        }
     }
 }

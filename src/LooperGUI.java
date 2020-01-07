@@ -27,12 +27,28 @@ public class LooperGUI extends Application{
         recordList = new ArrayList<>();
     }
 
+    private void deleteTracks(){
+        File trackDir = new File("src/Tracks");
+        File[] tracks = trackDir.listFiles();
+        for(File f: tracks){
+            if(f.delete()){
+                System.out.println("Deleting "+f.getName());
+            }
+            else{
+                System.out.println("Failed to delete " + f.getName());
+            }
+        }
+    }
+
     private Button deleteButton(){
         Button delete = new Button();
         ImageView del = new ImageView(new Image("Graphics/Delete.png"));
         delete.setGraphic(del);
         delete.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
         delete.setPrefSize(150,220);
+        delete.setOnAction(e ->{
+            deleteTracks();
+        });
         return delete;
     }
 
@@ -51,15 +67,20 @@ public class LooperGUI extends Application{
             RecordButton rb = new RecordButton(Integer.toString(i));
             TrackToggleButton ttb = new TrackToggleButton(Integer.toString(i));
             VBox v = new VBox(ttb, rb);
+            v.setPrefHeight(460);
             tracks.getChildren().add(v);
             recordList.add(rb);
         }
         for(RecordButton button: recordList){
             button.setButtonList(recordList);
         }
-//        ImageView logo = new ImageView(new Image("Graphics/Logo.png"));
-//        logo.setFitWidth(150);
-        tracks.getChildren().add(new VBox(deleteButton(), logo()));
+        ImageView div = new ImageView(new Image("Graphics/Divider.png"));
+        div.setFitHeight(455);
+        tracks.getChildren().add(div);
+
+        VBox vb = new VBox(deleteButton(), logo());
+        vb.setPrefHeight(420);
+        tracks.getChildren().add(vb);
     }
 
     @Override
@@ -76,23 +97,6 @@ public class LooperGUI extends Application{
 
     @Override
     public void stop() throws Exception {
-        //TODO: Add option to save recordings in the future, for now,
-        // delete all recorded tracks when program is closed
-        //Delete all created tracks
-//        File trackDir = new File("src/Tracks");
-//        File[] tracks = trackDir.listFiles();
-//        for(File f: tracks){
-//            if(f.delete()){
-//                System.out.println("Deleting "+f.getName());
-//            }
-//            else if(f.isDirectory()){
-//                System.out.println(f.getName() + "is here");
-//            }
-//            else{
-//                System.out.println("Failed to delete " + f.getName());
-//            }
-//        }
-
         super.stop();
     }
 
