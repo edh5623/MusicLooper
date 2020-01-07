@@ -34,7 +34,6 @@ public class Recorder extends Thread{
             System.out.println("Beginning recording...");
 
             AudioSystem.write(ais, AudioFileFormat.Type.WAVE, wav);
-
         }
         catch (LineUnavailableException lue){
             System.out.println("Line unavailable!");

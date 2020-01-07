@@ -1,5 +1,8 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +27,24 @@ public class LooperGUI extends Application{
         recordList = new ArrayList<>();
     }
 
+    private Button deleteButton(){
+        Button delete = new Button();
+        ImageView del = new ImageView(new Image("Graphics/Delete.png"));
+        delete.setGraphic(del);
+        delete.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
+        delete.setPrefSize(150,220);
+        return delete;
+    }
+
+    private Button logo(){
+        Button logo = new Button();
+        ImageView log = new ImageView(new Image("Graphics/Logo.png"));
+        logo.setGraphic(log);
+        logo.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
+        logo.setPrefSize(150,220);
+        return logo;
+    }
+
     private void makeTracks(){
         tracks = new HBox();
         for(int i = 0; i<6; i++){
@@ -36,6 +57,9 @@ public class LooperGUI extends Application{
         for(RecordButton button: recordList){
             button.setButtonList(recordList);
         }
+//        ImageView logo = new ImageView(new Image("Graphics/Logo.png"));
+//        logo.setFitWidth(150);
+        tracks.getChildren().add(new VBox(deleteButton(), logo()));
     }
 
     @Override
@@ -55,12 +79,19 @@ public class LooperGUI extends Application{
         //TODO: Add option to save recordings in the future, for now,
         // delete all recorded tracks when program is closed
         //Delete all created tracks
-        File trackDir = new File("src/Tracks");
-        File[] tracks = trackDir.listFiles();
-        for(File f: tracks){
-            System.out.println("Deleting "+f.getName());
-            f.delete();
-        }
+//        File trackDir = new File("src/Tracks");
+//        File[] tracks = trackDir.listFiles();
+//        for(File f: tracks){
+//            if(f.delete()){
+//                System.out.println("Deleting "+f.getName());
+//            }
+//            else if(f.isDirectory()){
+//                System.out.println(f.getName() + "is here");
+//            }
+//            else{
+//                System.out.println("Failed to delete " + f.getName());
+//            }
+//        }
 
         super.stop();
     }

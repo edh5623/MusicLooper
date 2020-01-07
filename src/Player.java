@@ -9,9 +9,12 @@ public class Player extends Thread{
 
     private String name;
 
+    private boolean playing;
+
     public Player(String trackNum){
         name = "src/Tracks/track"+trackNum+".wav";
         wav = new File(name);
+        playing = false;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class Player extends Thread{
 
             line.open();
             line.start();
+            playing = true;
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             AudioInputStream in = AudioSystem.getAudioInputStream(wav);
@@ -39,7 +43,7 @@ public class Player extends Thread{
             out.flush();
             byte[] b = out.toByteArray();
 
-            while(true){
+            while(playing){
                 line.write(b, 0, b.length);
             }
 
@@ -60,6 +64,7 @@ public class Player extends Thread{
     }
 
     public void finish(){
+        playing = false;
         line.stop();
         line.close();
         System.out.println("Done playing");
