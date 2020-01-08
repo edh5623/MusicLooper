@@ -11,22 +11,32 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
+ * Creates the application window and accepts input from
+ * the user via buttons.
  * @author Ethan Howes
  */
 public class LooperGUI extends Application{
 
+    /** The main pane containing all of the buttons */
     private BorderPane main;
-
+    /** The HBox containing all of the recording/playback tracks */
     private HBox tracks;
-
+    /** List of all recording buttons, used to disable others when one is in use*/
     private ArrayList<RecordButton> recordList;
 
+    /**
+     * Initializes the main BorderPane and list of RecordButton's
+     */
     @Override
     public void init() {
         main = new BorderPane();
         recordList = new ArrayList<>();
     }
 
+
+    /**
+     * Deletes all tracks recorded in the tracks folder
+     */
     private void deleteTracks(){
         File trackDir = new File("src/Tracks");
         File[] tracks = trackDir.listFiles();
@@ -40,18 +50,25 @@ public class LooperGUI extends Application{
         }
     }
 
+    /**
+     * Creates and returns the delete button which
+     * calls deleteTracks when clicked
+     * @return a delete tracks button
+     */
     private Button deleteButton(){
         Button delete = new Button();
         ImageView del = new ImageView(new Image("Graphics/Delete.png"));
         delete.setGraphic(del);
         delete.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
         delete.setPrefSize(150,220);
-        delete.setOnAction(e ->{
-            deleteTracks();
-        });
+        delete.setOnAction(e -> deleteTracks());
         return delete;
     }
 
+    /**
+     * Creates and returns the logo button which is purely aesthetic
+     * @return the logo button
+     */
     private Button logo(){
         Button logo = new Button();
         ImageView log = new ImageView(new Image("Graphics/Logo.png"));
@@ -61,6 +78,11 @@ public class LooperGUI extends Application{
         return logo;
     }
 
+    /**
+     * Creates all of the record and play buttons in vbox's and
+     * puts them in the tracks hbox along with the delete and
+     * logo buttons at the end
+     */
     private void makeTracks(){
         tracks = new HBox();
         for(int i = 0; i<6; i++){
@@ -83,6 +105,11 @@ public class LooperGUI extends Application{
         tracks.getChildren().add(vb);
     }
 
+    /**
+     * Initializes the stage object with the main BorderPane
+     * and sets the tracks in the center of it
+     * @param stage
+     */
     @Override
     public void start(Stage stage){
         makeTracks();
@@ -95,11 +122,19 @@ public class LooperGUI extends Application{
         stage.show();
     }
 
+    /**
+     * Closes the GUI
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         super.stop();
     }
 
+    /**
+     * Starts the application
+     * @param args
+     */
     public static void main(String[] args) {
         // Possibly implement command line args for the future
 //        if (args.length != 1) {
