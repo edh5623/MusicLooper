@@ -1,22 +1,34 @@
 import javax.sound.sampled.*;
 import java.io.*;
 
+/**
+ * Thread used to play audio from a wav file on loop
+ * @author Ethan Howes
+ */
 public class Player extends Thread{
 
+    /** File the audio is being played from */
     private File wav;
-
+    /** Line being used to play audio */
     private SourceDataLine line;
-
-    private String name;
-
+    /** Status used to know if the audio is currently playing or not */
     private boolean playing;
 
+    /**
+     * Player constructor which sets the file
+     * that the audio is being played from and initializes
+     * the playing status to false (not playing)
+     * @param trackNum the track number that is playing
+     */
     public Player(String trackNum){
-        name = "src/Tracks/track"+trackNum+".wav";
-        wav = new File(name);
+        wav = new File("src/Tracks/track"+trackNum+".wav");
         playing = false;
     }
 
+    /**
+     * Sets up and begins audio playback on loop, playback line will be open
+     * and playback will continue to loop until finish is called
+     */
     @Override
     public void run() {
         try{
@@ -29,11 +41,11 @@ public class Player extends Thread{
 
             line.open();
             line.start();
-            playing = true;
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             AudioInputStream in = AudioSystem.getAudioInputStream(wav);
 
+            // Load the audio data into a buffer
             int read;
             byte[] buff = new byte[1024];
             while ((read = in.read(buff)) > 0)
@@ -43,17 +55,19 @@ public class Player extends Thread{
             out.flush();
             byte[] b = out.toByteArray();
 
+            // Play the loaded audio data on loop
+            playing = true;
             while(playing){
                 line.write(b, 0, b.length);
             }
             in.close();
         }
         catch(IOException ioe){
-            System.out.println("IO Exception!");
+            System.out.println("IO Exception");
             ioe.printStackTrace();
         }
         catch(LineUnavailableException lue){
-            System.out.println("Line unavailable!");
+            System.out.println("Line unavailable");
             lue.printStackTrace();
         }
         catch (UnsupportedAudioFileException uafe){
@@ -62,6 +76,10 @@ public class Player extends Thread{
         }
     }
 
+    /**
+     * Closes the playing line and sets the playing status
+     * to not playing to end the playing loop
+     */
     public void finish(){
         playing = false;
         line.stop();

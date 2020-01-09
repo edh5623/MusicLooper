@@ -2,16 +2,30 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Thread used to record audio and save it into a wav file
+ * @author Ethan Howes
+ */
 public class Recorder extends Thread{
 
+    /** File the audio is being saved to */
     private File wav;
-
+    /** Line used to record the audio */
     private TargetDataLine line;
 
+    /**
+     * Recorder constructor which creates the file
+     * that the audio recorded is being saved to
+     * @param trackNum the track number that is recording
+     */
     public Recorder(String trackNum){
         wav = new File("src/Tracks/track"+trackNum+".wav");
     }
 
+    /**
+     * Sets up and begins recording, recording line will be open
+     * until finish is called
+     */
     @Override
     public void run(){
         try{
@@ -22,7 +36,7 @@ public class Recorder extends Thread{
 
             if (!AudioSystem.isLineSupported(info)) {
                 System.out.println("Error, line not supported");
-                System.exit(0);
+                System.exit(-1);
             }
 
             line = (TargetDataLine) AudioSystem.getLine(info);
@@ -36,16 +50,19 @@ public class Recorder extends Thread{
             AudioSystem.write(ais, AudioFileFormat.Type.WAVE, wav);
         }
         catch (LineUnavailableException lue){
-            System.out.println("Line unavailable!");
+            System.out.println("Line unavailable");
             lue.printStackTrace();
         }
         catch (IOException ioe){
-            System.out.println("IO Exception!");
+            System.out.println("IO Exception");
             ioe.printStackTrace();
         }
 
     }
 
+    /**
+     * Closes the recording line and stops the recording
+     */
     public void finish(){
         line.stop();
         line.flush();

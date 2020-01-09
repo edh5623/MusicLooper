@@ -4,12 +4,26 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
+/**
+ * Toggleable button to play audio on loop and stop playing
+ * @author Ethan Howes
+ */
 public class TrackToggleButton extends ToggleButton {
 
+    /** The player object used to play auio */
     private Player player;
-
+    /** Unique track number that this button is in */
     private String trackNum;
 
+    /**
+     * Constructor for the track toggle button
+     * Creates the button and images that go with it
+     * and re-sizes it appropriately
+     * Defines the button's action to play the audio file
+     * associated with its track number on loop when clicked
+     * and to stop playing when clicked again
+     * @param trackNum The track number that the button is in
+     */
     public TrackToggleButton(String trackNum){
         this.trackNum = trackNum;
         this.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 0;");
@@ -17,14 +31,10 @@ public class TrackToggleButton extends ToggleButton {
         ImageView on = new ImageView(new Image("Graphics/TrackON.png"));
         on.setFitHeight(275);
         on.setFitWidth(133);
-//        on.setFitHeight(Screen.getPrimary().getBounds().getHeight()/2);
-//        on.setFitWidth(Screen.getPrimary().getBounds().getWidth()/10);
 
         ImageView off = new ImageView(new Image("Graphics/TrackOFF.png"));
         off.setFitHeight(275);
         off.setFitWidth(133);
-//        off.setFitHeight(Screen.getPrimary().getBounds().getHeight()/2);
-//        off.setFitWidth(Screen.getPrimary().getBounds().getWidth()/10);
 
         this.setGraphic(off);
 
@@ -42,13 +52,15 @@ public class TrackToggleButton extends ToggleButton {
                     player.finish();
                 }
             }
-            //Call model method for track toggle
         });
-
         this.setPrefSize(150,300);
-//        this.setPrefSize(Screen.getPrimary().getBounds().getWidth()/6,Screen.getPrimary().getBounds().getHeight());
     }
 
+    /**
+     * Checks whether the track this TrackToggleButton is responsible
+     * for playing exists or not
+     * @return true if the track exists, false if not
+     */
     private boolean trackExists(){
         File trackDir = new File("src/Tracks");
         File[] tracks = trackDir.listFiles();
@@ -59,6 +71,4 @@ public class TrackToggleButton extends ToggleButton {
         }
         return false;
     }
-
-
 }

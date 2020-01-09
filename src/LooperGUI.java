@@ -25,7 +25,7 @@ public class LooperGUI extends Application{
     /** List of all recording buttons, used to disable others when one is in use*/
     private ArrayList<RecordButton> recordList;
     /** The number of tracks to make */
-    public int num_tracks;
+    private int num_tracks;
 
     /**
      * Initializes the main BorderPane and list of RecordButton's
