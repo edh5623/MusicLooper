@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Creates the application window and accepts input from
@@ -23,12 +24,27 @@ public class LooperGUI extends Application{
     private HBox tracks;
     /** List of all recording buttons, used to disable others when one is in use*/
     private ArrayList<RecordButton> recordList;
+    /** The number of tracks to make */
+    public int num_tracks;
 
     /**
      * Initializes the main BorderPane and list of RecordButton's
      */
     @Override
     public void init() {
+        List<String> args = getParameters().getRaw();
+        if(args.size() == 0){
+            num_tracks = 5;
+        }
+        else {
+            try {
+                num_tracks = Integer.parseInt(args.get(0));
+            }
+            catch (NumberFormatException nfe){
+                System.out.println("Number of tracks must be an integer.");
+                System.exit(-1);
+            }
+        }
         main = new BorderPane();
         recordList = new ArrayList<>();
     }
@@ -85,7 +101,7 @@ public class LooperGUI extends Application{
      */
     private void makeTracks(){
         tracks = new HBox();
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<num_tracks; i++){
             RecordButton rb = new RecordButton(Integer.toString(i));
             TrackToggleButton ttb = new TrackToggleButton(Integer.toString(i));
             VBox v = new VBox(ttb, rb);
@@ -123,27 +139,14 @@ public class LooperGUI extends Application{
     }
 
     /**
-     * Closes the GUI
-     * @throws Exception
-     */
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-    }
-
-    /**
      * Starts the application
-     * @param args
+     * @param args one optional argument specifying the number of tracks
      */
     public static void main(String[] args) {
-        // Possibly implement command line args for the future
-//        if (args.length != 1) {
-//            System.out.println("Usage: java MusicLooper Number of Loops (max 7)");
-//            System.exit(-1);
-//        }
-//        else {
-//            Application.launch(args);
-//        }
+        if (args.length > 1) {
+            System.out.println("Usage: java MusicLooper [Number of Tracks]");
+            System.exit(-1);
+        }
         Application.launch(args);
     }
 }
